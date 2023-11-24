@@ -10,5 +10,4 @@ RUN apt-get -y update \
         bash \
         jq \
         python3 \
-        python3-pip \
-RUN pip3 install aws-cli
+        python3-pip 
