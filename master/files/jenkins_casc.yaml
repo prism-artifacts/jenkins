@@ -1,0 +1,60 @@
+jenkins:
+  systemMessage: "This jenkins instance is configured by the configuration as Code plugin"
+  slaveAgentPort: 50000
+  agentProtocols:
+    - "JNLP4-connect"
+  updateCenter:
+    sites:
+      - id: "default"
+        url: "https://updates.jenkins.io/current/update-center.json"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: admin
+          password: ${ADMIN_PWD}
+  authorizationStrategy:
+    globalMatrix:
+      grantedPermissions:
+        - "Overall/Read:authenticated"
+        - "Job/Read:authenticated"
+        - "View/Read:authenticated"
+        - "Overall/Administer:authenticated"
+  crumbIssuer: "standard"
+  # clouds:
+  #   - ecs:
+  #       cluster: ${CLUSTER_ARN}
+  #       credentialsId: ''
+  #       allowedOverrides: "inheritFrom,label,memory,cpu,image"
+  #       name: "ecs-agent"
+  #       regionName: ${CLUSTER_REGION}
+  #       tunnel: ${JENKINS_CONTROLLER_AGENT_TUNNEL}
+  #       templates:
+  #           - templateName: "fargate_agent"
+  #             label: "ecs-agent"
+  #             assignPublicIp: false
+  #             image: "jenkins/inbound-agent:alpine"
+  #             executionRole: ${ECS_EXECUTION_ROLE_ARN}
+  #             taskrole: ${ECS_AGENT_TASK_ROLE_ARN}
+  #             launchType: "FARGATE"
+  #             cpu: 512
+  #             memoryReservation: 2048
+  #             networkMode: "awsvpc"
+  #             operatingSystemFamily: "LINUX"
+  #             platformVersion: "LATEST"
+  #             remoteFSRoot: "/home/jenkins"
+  #             securityGroups: ${AGENT_SECURITY_GROUP}
+  #             subnets: ${SUBNETS}
+  #             logDriver: awslogs
+  #             logDriverOptions:
+  #               - name: awslogs-group
+  #                 value: ${LOG_GROUP_NAME}
+  #               - name: awslogs-region
+  #                 value: ${CLUSTER_REGION}
+  #               - name: awslogs-stream-prefix
+  #                 value: jenkins-agent
+tool:
+  git:
+    installations:
+      - name: git
+        home: /usr/local/bin/git
