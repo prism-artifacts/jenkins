@@ -3,16 +3,15 @@ jenkins:
   slaveAgentPort: 50000
   agentProtocols:
     - "JNLP4-connect"
+    - "Ping"
   updateCenter:
     sites:
       - id: "default"
         url: "https://updates.jenkins.io/current/update-center.json"
   securityRealm:
-    local:
-      allowsSignup: false
-      users:
-        - id: admin
-          password: ${ADMIN_PWD}
+    bitbucket:
+      clientId: ${BITBUCKET_CLIENT_ID}
+      secretClientSecret: ${BITBUCKET_CLIENT_SECRET}
   authorizationStrategy:
     globalMatrix:
       grantedPermissions:
@@ -21,38 +20,30 @@ jenkins:
         - "View/Read:authenticated"
         - "Overall/Administer:authenticated"
   crumbIssuer: "standard"
-  # clouds:
-  #   - ecs:
-  #       cluster: ${CLUSTER_ARN}
-  #       credentialsId: ''
-  #       allowedOverrides: "inheritFrom,label,memory,cpu,image"
-  #       name: "ecs-agent"
-  #       regionName: ${CLUSTER_REGION}
-  #       tunnel: ${JENKINS_CONTROLLER_AGENT_TUNNEL}
-  #       templates:
-  #           - templateName: "fargate_agent"
-  #             label: "ecs-agent"
-  #             assignPublicIp: false
-  #             image: "jenkins/inbound-agent:alpine"
-  #             executionRole: ${ECS_EXECUTION_ROLE_ARN}
-  #             taskrole: ${ECS_AGENT_TASK_ROLE_ARN}
-  #             launchType: "FARGATE"
-  #             cpu: 512
-  #             memoryReservation: 2048
-  #             networkMode: "awsvpc"
-  #             operatingSystemFamily: "LINUX"
-  #             platformVersion: "LATEST"
-  #             remoteFSRoot: "/home/jenkins"
-  #             securityGroups: ${AGENT_SECURITY_GROUP}
-  #             subnets: ${SUBNETS}
-  #             logDriver: awslogs
-  #             logDriverOptions:
-  #               - name: awslogs-group
-  #                 value: ${LOG_GROUP_NAME}
-  #               - name: awslogs-region
-  #                 value: ${CLUSTER_REGION}
-  #               - name: awslogs-stream-prefix
-  #                 value: jenkins-agent
+  clouds:
+    - kubernetes:
+        name: "kubernetes-agent"
+        containerCap: 10
+        containerCapStr: "10"
+        namespace: ${NAMESPACE}
+        jenkinsUrl: ${JENKINS_SVC_URL}
+        templates:
+        - containers:
+          - name: "jnlp-agent"
+            image: "jenkins/inbound-agent:latest"
+            labels: "agent"
+            namespace: "${NAMESPACE}"
+            showRawYaml: false
+            yamlMergeStrategy: "merge"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter:
+      includes:
+        classNames:
+        - "com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider"
+        - "com.cloudbees.plugins.credentials.SystemCredentialsProvider$ProviderImpl"
+        - "com.cloudbees.plugins.credentials.UserCredentialsProvider"
+    typeFilter: "none"
 tool:
   git:
     installations:
