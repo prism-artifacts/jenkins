@@ -21,20 +21,20 @@ jenkins:
         - "Overall/Administer:authenticated"
   crumbIssuer: "standard"
   clouds:
-    - kubernetes:
-        name: "kubernetes-agent"
-        containerCap: 10
-        containerCapStr: "10"
-        namespace: ${NAMESPACE}
-        jenkinsUrl: ${JENKINS_SVC_URL}
-        templates:
-        - containers:
-          - name: "jnlp-agent"
-            image: "jenkins/inbound-agent:latest"
-            labels: "agent"
-            namespace: "${NAMESPACE}"
-            showRawYaml: false
-            yamlMergeStrategy: "merge"
+  - kubernetes:
+      name: "kubernetes-agent"
+      containerCap: 10
+      containerCapStr: "10"
+      namespace: ${NAMESPACE}
+      jenkinsUrl: ${JENKINS_SVC_URL}
+      templates:
+      - containers:
+        - name: "jnlp-agent"
+          image: "jenkins/inbound-agent:latest"
+          labels: "agent"
+          namespace: "${NAMESPACE}"
+          showRawYaml: false
+          yamlMergeStrategy: "merge"
 globalCredentialsConfiguration:
   configuration:
     providerFilter:
