@@ -23,16 +23,24 @@ jenkins:
   clouds:
   - kubernetes:
       name: "kubernetes-agent"
-      containerCap: 10
-      containerCapStr: "10"
       namespace: ${NAMESPACE}
       jenkinsUrl: ${JENKINS_SVC_URL}
+      containerCap: 10
+      containerCapStr: "10"
       templates:
       - containers:
         - name: "jnlp-agent"
           image: "jenkins/inbound-agent:latest"
-          labels: "agent"
+          workingDir: "/home/jenkins/agent"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
         namespace: "${NAMESPACE}"
+        label: "kube-agent"
+        name: "kube-agent"
         showRawYaml: false
         yamlMergeStrategy: "merge"
 globalCredentialsConfiguration:
