@@ -9,9 +9,11 @@ jenkins:
       - id: "default"
         url: "https://updates.jenkins.io/current/update-center.json"
   securityRealm:
-    bitbucket:
-      clientId: ${BITBUCKET_CLIENT_ID}
-      secretClientSecret: ${BITBUCKET_CLIENT_SECRET}
+    local:
+      allowsSignup: false
+      users:
+        - id: admin
+          password: ${ADMIN_PWD}
   authorizationStrategy:
     globalMatrix:
       grantedPermissions:
