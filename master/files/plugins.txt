@@ -4,6 +4,8 @@ authentication-tokens
 aws-credentials
 aws-java-sdk
 bitbucket
+bitbucket-oauth
+blueocean
 bouncycastle-api
 bouncycastle-api
 branch-api
@@ -50,6 +52,7 @@ scm-api
 script-security
 snakeyaml-api
 ssh-credentials
+sonar
 structs
 timestamper
 token-macro
