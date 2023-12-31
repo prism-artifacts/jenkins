@@ -32,9 +32,9 @@ jenkins:
         - name: "jnlp-agent"
           image: "jenkins/inbound-agent:latest"
           labels: "agent"
-          namespace: "${NAMESPACE}"
-          showRawYaml: false
-          yamlMergeStrategy: "merge"
+        namespace: "${NAMESPACE}"
+        showRawYaml: false
+        yamlMergeStrategy: "merge"
 globalCredentialsConfiguration:
   configuration:
     providerFilter:
