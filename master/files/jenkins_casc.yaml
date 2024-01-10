@@ -31,7 +31,7 @@ jenkins:
       containerCapStr: "10"
       templates:
       - containers:
-        - name: "jnlp-agent"
+        - name: "jnlp"
           image: "jenkins/inbound-agent:latest"
           workingDir: "/home/jenkins/agent"
           livenessProbe:
