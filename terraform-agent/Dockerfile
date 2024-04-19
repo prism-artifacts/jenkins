@@ -1,5 +1,5 @@
 FROM docker.io/alpine/k8s:1.26.13
-RUN apk add g++ && apk add make
+RUN apk add g++ && apk add make jq
 ARG TERRAFORM_VERSION=1.7.3
 #Terraform Installation
 RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
