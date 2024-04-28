@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [master, node, terraform-agent]
+        version: [master, node, build-agent, terraform-agent]
 
     steps:
       - name: 'Checkout Github Action'
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: [master, node, terraform-agent]
+        version: [master, node, build-agent, terraform-agent]
     needs: [build]
     steps:
       - name: Checkout Github Action
