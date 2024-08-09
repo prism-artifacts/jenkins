@@ -148,3 +148,7 @@ workflow-scm-step
 workflow-step-api
 workflow-support
 ws-cleanup
+allure-jenkins-plugin
+git-parameter
+uno-choice
+maven-plugin
