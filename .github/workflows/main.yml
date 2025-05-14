@@ -32,7 +32,7 @@ jobs:
           context: ${{ matrix.version }}/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/${{ vars.IMAGE_NAME }}:${{ matrix.node_version }}
+          tags: ghcr.io/${{ vars.IMAGE_NAME }}:${{ matrix.version }}
 
   scan:
     permissions:
