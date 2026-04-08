@@ -154,3 +154,4 @@ uno-choice
 maven-plugin
 build-user-vars-plugin
 extended-choice-parameter
+google-login
